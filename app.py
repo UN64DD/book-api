@@ -10,3 +10,17 @@ books = [{"id": 1, "title": "Atomic Habits", "author": "James Clear"},
 
 def home():
     return "Book API is running"
+
+@app.route('/books', methods=['GET'])
+
+def get_books():
+    return jsonify(books)
+
+@app.route('/books/<int: id>', methods=['GET'])
+def book(id):
+    book = next((b for b in books if b["id"]), None)
+
+    if book is None:
+        return jsonify({"error": "Book not found"}), 404
+    
+    return jsonify(book)
