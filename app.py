@@ -16,7 +16,7 @@ def home():
 def get_books():
     return jsonify(books)
 
-@app.route('/books/<int: id>', methods=['GET'])
+@app.route('/books/<int:id>', methods=['GET'])
 def book(id):
     book = next((b for b in books if b["id"]), None)
 
@@ -24,3 +24,41 @@ def book(id):
         return jsonify({"error": "Book not found"}), 404
     
     return jsonify(book)
+
+@app.route("/books", methods=['POST'])
+
+def create_book():
+    data = request.get_json()
+
+    new_book = {
+        "id": books[-1]["id"] + 1 if books else 1,
+        "title": data["title"],
+        "author": data["author"]
+    }
+
+    books.append(new_book)
+    return jsonify(new_book), 201
+
+@app.route('/books/<int:id>', methods=['PUT'])
+
+def update_book():
+    data = request.get_json
+
+    for book in books:
+        if book["id"] == id:
+            book["title"] = data.get("title", book["title"])
+            book["author"] = data.get("author", book["author"])
+            return jsonify(book)
+        
+        return jsonify({"error": "Book not found"}), 404
+    
+@app.route("/books/<int:id>", methods=['DELETE'])
+
+def delete_book():
+    global books
+    books = [b for b in books if b["id"] != id]
+
+    return jsonify({"error": "Book not found"}), 404
+
+if __name__ == '__name__':
+    app.run(debug=True)
