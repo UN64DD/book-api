@@ -91,6 +91,21 @@ http://127.0.0.1:5000/
 
 ---
 
+### 🐳 Running with Docker
+
+```bash
+docker build -t book-api .
+docker run -p 8000:8000 book-api
+```
+
+Server will run at:
+
+```
+http://localhost:8000/
+```
+
+---
+
 ## 📌 API Endpoints
 
 ### 🏠 Home
